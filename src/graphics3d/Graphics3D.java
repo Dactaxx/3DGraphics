@@ -37,7 +37,33 @@ public class Graphics3D extends JPanel implements Runnable {
 	public static void main(String[] args) {
 		Window.createWindow();
 		start();
-		System.out.println(project(g3d.new Point3D(1, 2, 0), g3d.new Point3D(0, 0, 0), g3d.new Point3D(0, 0, 0), e).getY());
+//		System.out.println(project(g3d.new Point3D(1, 2, 0), g3d.new Point3D(0, 0, 0), g3d.new Point3D(0, 0, 0), e).getY());
+		int inc = 1;
+		double[][] a = new double[3][2];
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 2; j++) {
+				a[i][j] = inc;
+				inc++;
+				System.out.print(a[i][j] + ", ");
+			}
+			System.out.println("");
+		}
+		inc = 1;
+		double[][] b = new double[2][3];
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j < 3; j++) {
+				b[i][j] = inc;
+				inc++;
+				System.out.print(b[i][j] + ", ");
+			}
+			System.out.println("");
+		}
+		
+		double[][] c = MatrixMath.multiply(a, b);
+		for(int i = 0; i < c.length; i++) {
+			System.out.println(c[i][0]);
+			
+		}
 		
 	}
 	
