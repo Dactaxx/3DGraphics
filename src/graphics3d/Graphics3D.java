@@ -1,7 +1,10 @@
 package graphics3d;
 
+import java.awt.AWTException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Robot;
 
 import javax.swing.JPanel;
 
@@ -19,20 +22,28 @@ public class Graphics3D extends JPanel implements Runnable {
 	public static Point2D f7 = g3d.new Point2D();
 	public static Point2D f8 = g3d.new Point2D();
 	
-	public static Point3D a1 = g3d.new Point3D(1, 2, 1);
-	public static Point3D a2 = g3d.new Point3D(1, 3, 1);
-	public static Point3D a3 = g3d.new Point3D(2, 2, 1);
-	public static Point3D a4 = g3d.new Point3D(2, 3, 1);
+	public static Point3D a1 = g3d.new Point3D(100, 200, 0);
+	public static Point3D a2 = g3d.new Point3D(100, 300, 0);
+	public static Point3D a3 = g3d.new Point3D(200, 200, 0);
+	public static Point3D a4 = g3d.new Point3D(200, 300, 0);
 	
-	public static Point3D a5 = g3d.new Point3D(1, 2, 2);
-	public static Point3D a6 = g3d.new Point3D(1, 3, 2);
-	public static Point3D a7 = g3d.new Point3D(2, 2, 2);
-	public static Point3D a8 = g3d.new Point3D(2, 3, 2);
+	static double q = 100;
+	public static Point3D a5 = g3d.new Point3D(100, 200, q);
+	public static Point3D a6 = g3d.new Point3D(100, 300, q);
+	public static Point3D a7 = g3d.new Point3D(200, 200, q);
+	public static Point3D a8 = g3d.new Point3D(200, 300, q);
 	
-	public static Point3D c = g3d.new Point3D(-5, 6, 3);
+	public static Point3D c = g3d.new Point3D(0, 0, -500);
 	public static Point3D o = g3d.new Point3D(0, 0, 0);
-	public static Point3D e = g3d.new Point3D(1, 1, 1);
+	public static Point3D e = g3d.new Point3D(0, 0, -200);
 	public static Point3D d = g3d.new Point3D();
+	
+	public static boolean keyW = false;
+	public static boolean keyA = false;
+	public static boolean keyS = false;
+	public static boolean keyD	= false;
+	
+	public static double mouseX, mouseY;
 	
 	public static void main(String[] args) {
 		Window.createWindow();
@@ -119,7 +130,10 @@ public class Graphics3D extends JPanel implements Runnable {
 	@Override
 	public void run() {
 		while(running) {
-			tick();
+			try {
+				tick();
+			} catch (AWTException e1) {
+			}
 			render();
 			
 			try {
@@ -134,24 +148,24 @@ public class Graphics3D extends JPanel implements Runnable {
 	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.drawLine((int)(f1.getX() * 50 + 960), (int)(f1.getY() * 50 + 540), (int)(f2.getX() * 50 + 960), (int)(f2.getY() * 50 + 540));
-		g2d.drawLine((int)(f1.getX() * 50 + 960), (int)(f1.getY() * 50 + 540), (int)(f3.getX() * 50 + 960), (int)(f3.getY() * 50 + 540));
-		g2d.drawLine((int)(f2.getX() * 50 + 960), (int)(f2.getY() * 50 + 540), (int)(f4.getX() * 50 + 960), (int)(f4.getY() * 50 + 540));
-		g2d.drawLine((int)(f3.getX() * 50 + 960), (int)(f3.getY() * 50 + 540), (int)(f4.getX() * 50 + 960), (int)(f4.getY() * 50 + 540));
+		g2d.drawLine((int)(f1.getX() + 960), (int)(f1.getY() + 540), (int)(f2.getX() + 960), (int)(f2.getY() + 540));
+		g2d.drawLine((int)(f1.getX() + 960), (int)(f1.getY() + 540), (int)(f3.getX() + 960), (int)(f3.getY() + 540));
+		g2d.drawLine((int)(f2.getX() + 960), (int)(f2.getY() + 540), (int)(f4.getX() + 960), (int)(f4.getY() + 540));
+		g2d.drawLine((int)(f3.getX() + 960), (int)(f3.getY() + 540), (int)(f4.getX() + 960), (int)(f4.getY() + 540));
 		
-		g2d.drawLine((int)(f5.getX() * 50 + 960), (int)(f5.getY() * 50 + 540), (int)(f6.getX() * 50 + 960), (int)(f6.getY() * 50 + 540));
-		g2d.drawLine((int)(f5.getX() * 50 + 960), (int)(f5.getY() * 50 + 540), (int)(f7.getX() * 50 + 960), (int)(f7.getY() * 50 + 540));
-		g2d.drawLine((int)(f6.getX() * 50 + 960), (int)(f6.getY() * 50 + 540), (int)(f8.getX() * 50 + 960), (int)(f8.getY() * 50 + 540));
-		g2d.drawLine((int)(f7.getX() * 50 + 960), (int)(f7.getY() * 50 + 540), (int)(f8.getX() * 50 + 960), (int)(f8.getY() * 50 + 540));
+		g2d.drawLine((int)(f5.getX() + 960), (int)(f5.getY() + 540), (int)(f6.getX() + 960), (int)(f6.getY() + 540));
+		g2d.drawLine((int)(f5.getX() + 960), (int)(f5.getY() + 540), (int)(f7.getX() + 960), (int)(f7.getY() + 540));
+		g2d.drawLine((int)(f6.getX() + 960), (int)(f6.getY() + 540), (int)(f8.getX() + 960), (int)(f8.getY() + 540));
+		g2d.drawLine((int)(f7.getX() + 960), (int)(f7.getY() + 540), (int)(f8.getX() + 960), (int)(f8.getY() + 540));
 		
-		g2d.drawLine((int)(f1.getX() * 50 + 960), (int)(f1.getY() * 50 + 540), (int)(f5.getX() * 50 + 960), (int)(f5.getY() * 50 + 540));
-		g2d.drawLine((int)(f2.getX() * 50 + 960), (int)(f2.getY() * 50 + 540), (int)(f6.getX() * 50 + 960), (int)(f6.getY() * 50 + 540));
-		g2d.drawLine((int)(f3.getX() * 50 + 960), (int)(f3.getY() * 50 + 540), (int)(f7.getX() * 50 + 960), (int)(f7.getY() * 50 + 540));
-		g2d.drawLine((int)(f4.getX() * 50 + 960), (int)(f4.getY() * 50 + 540), (int)(f8.getX() * 50 + 960), (int)(f8.getY() * 50 + 540));
+		g2d.drawLine((int)(f1.getX() + 960), (int)(f1.getY() + 540), (int)(f5.getX() + 960), (int)(f5.getY() + 540));
+		g2d.drawLine((int)(f2.getX() + 960), (int)(f2.getY() + 540), (int)(f6.getX() + 960), (int)(f6.getY() + 540));
+		g2d.drawLine((int)(f3.getX() + 960), (int)(f3.getY() + 540), (int)(f7.getX() + 960), (int)(f7.getY() + 540));
+		g2d.drawLine((int)(f4.getX() + 960), (int)(f4.getY() + 540), (int)(f8.getX() + 960), (int)(f8.getY() + 540));
 		
 	}
 	
-	public static void tick() {
+	public static void tick() throws AWTException {
 /*		Double x = a.getX() - c.getX();
 		Double y = a.getY() - c.getY();
 		Double z = a.getZ() - c.getZ();
@@ -173,9 +187,35 @@ public class Graphics3D extends JPanel implements Runnable {
 		f7 = project(a7, c, o, e);
 		f8 = project(a8, c, o, e);
 		
-		c.setX(c.getX()+.01);
-		c.setY(c.getY()+.01);
-		c.setZ(c.getZ()-.01);
+//		c.setX(c.getX()+.01);
+//		c.setY(c.getY()+.01);
+//		c.setZ(c.getZ()-.01);
+		
+		mouseX = MouseInfo.getPointerInfo().getLocation().getX() - 800;
+		mouseY = MouseInfo.getPointerInfo().getLocation().getY() - 450;
+		
+		o.setY(o.getY() + mouseX * .001);
+		o.setX(o.getX() + mouseY * .001);
+		Robot rbt = new Robot();
+		rbt.mouseMove(800, 450);
+		
+		
+		
+		if(keyW) {
+			Graphics3D.c.setZ(Graphics3D.c.getZ() + 5);
+		}
+		
+		if(keyA) {
+			Graphics3D.c.setX(Graphics3D.c.getX() - 5);
+		}
+		
+		if(keyS) {
+			Graphics3D.c.setZ(Graphics3D.c.getZ() - 5);
+		}
+		
+		if(keyD) {
+			Graphics3D.c.setX(Graphics3D.c.getX() + 5);
+		}
 		
 	}
 	

@@ -27,6 +27,7 @@ public class Window {
 			}
 		
 		Graphics3D g3d = new Graphics3D();
+		frame.addKeyListener(new KeyInput());
 		frame.add(g3d);
 		
 		frame.setVisible(true);
