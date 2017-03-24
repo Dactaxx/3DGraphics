@@ -23,6 +23,14 @@ public class KeyInput implements KeyListener {
 			Graphics3D.keyD = true;
 		}
 		
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			Graphics3D.keySpace = true;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
+			Graphics3D.keyShift = true;
+		}
+		
 	}
 
 	@Override
@@ -41,6 +49,14 @@ public class KeyInput implements KeyListener {
 		
 		if(e.getKeyCode() == KeyEvent.VK_D) {
 			Graphics3D.keyD = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			Graphics3D.keySpace = false;
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
+			Graphics3D.keyShift = false;
 		}
 		
 	}
